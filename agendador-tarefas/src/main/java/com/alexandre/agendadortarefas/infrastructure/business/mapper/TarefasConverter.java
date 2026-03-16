@@ -4,6 +4,8 @@ import com.alexandre.agendadortarefas.infrastructure.business.dto.TarefasDTO;
 import com.alexandre.agendadortarefas.infrastructure.entity.TarefasEntity;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface TarefasConverter {
 
@@ -11,5 +13,8 @@ public interface TarefasConverter {
 
     TarefasDTO paraTarefasDTO(TarefasEntity dto);
 
+    List<TarefasEntity> paraListaTarefasEntity(List<TarefasDTO> dtos);
+
+    List<TarefasDTO>  paraListaTarefasDTO(List<TarefasEntity> entities);
 
 }
