@@ -10,7 +10,6 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 @Mapper(componentModel = "spring",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface TarefaUpdateConverter {
 
-
     //@MappingTarget assinala que o objeto é o principal, caso o outro seja nulo
     void updateTarefas(TarefasDTO dto, @MappingTarget  TarefasEntity entity);
 }
