@@ -72,6 +72,8 @@ public class TarefasService {
                     "encontrada " + id));
 
             entity.setStatus(status);
+            entity.setDataAlteração(LocalDateTime.now());
+
 
             return tarefaConverter.paraTarefasDTO(tarefasRepository.save(entity));
         } catch (ResourceNotFoundException e) {
@@ -85,6 +87,8 @@ public class TarefasService {
         try {
             TarefasEntity entity = tarefasRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Tarefa não" +
                     "encontrada " + id));
+
+            entity.setDataAlteração(LocalDateTime.now());
 
             tarefaUpdateConverter.updateTarefas(dto, entity); // transforma o objeto entity
 
