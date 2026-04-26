@@ -25,7 +25,7 @@ public class TarefasService {
 
     public TarefasDTO gravarTarefa(String token, TarefasDTO dto) {
 
-        String email = jwtUtil.extractTokenEmail(token.substring(7));
+        String email = jwtUtil.extrairEmailToken(token.substring(7));
 
         dto.setDataCriacao(LocalDateTime.now());
         dto.setStatus(StatusNotificacaoEnum.PENDENTE);
@@ -40,7 +40,7 @@ public class TarefasService {
 
     }
 
-    public List<TarefasDTO> buscaTarefasAgendadasPorPeriodo(LocalDateTime dataInicial, LocalDateTime dataFinal,String token) {
+    public List<TarefasDTO> buscaTarefasAgendadasPorPeriodo(LocalDateTime dataInicial, LocalDateTime dataFinal) {
 
         return tarefaConverter.paraListaTarefasDTO(tarefasRepository
                 .findByDataEventoBetweenAndStatus(dataInicial, dataFinal,StatusNotificacaoEnum.PENDENTE));
@@ -49,7 +49,7 @@ public class TarefasService {
 
     public List<TarefasDTO> buscaTarefasPorEmail(String token) {
 
-        String email = jwtUtil.extractTokenEmail(token.substring(7));
+        String email = jwtUtil.extrairEmailToken(token.substring(7));
 
         return tarefaConverter.paraListaTarefasDTO(tarefasRepository.findByEmailUsuario(email));
 
