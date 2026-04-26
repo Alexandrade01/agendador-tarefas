@@ -26,28 +26,27 @@ public class TarefasController {
 
     }
 
-    @GetMapping("eventos")
+    @GetMapping("/eventos")
     public ResponseEntity<List<TarefasDTO>> buscaListaDeTarefasPorPeriodo(
 
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicial,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal,
-            @RequestHeader("Authorization") String token
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal
     ) {
-        return ResponseEntity.ok(tarefasService.buscaTarefasAgendadasPorPeriodo(dataInicial, dataFinal,token));
+        return ResponseEntity.ok(tarefasService.buscaTarefasAgendadasPorPeriodo(dataInicial, dataFinal));
     }
 
-    @GetMapping("todosEventos")
+    @GetMapping("/todosEventos")
     public ResponseEntity<List<TarefasDTO>> buscaTarefasPorEmail(@RequestHeader("Authorization") String token) {
 
         return ResponseEntity.ok(tarefasService.buscaTarefasPorEmail(token));
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deletaTarefaPorId(@RequestParam("id") String id) {
+    public ResponseEntity<String> deletaTarefaPorId(@RequestParam("id") String id) {
 
         tarefasService.deletaTarefaPorId(id);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(String.format("Tarefa com id %s deletada !", id));
 
     }
 

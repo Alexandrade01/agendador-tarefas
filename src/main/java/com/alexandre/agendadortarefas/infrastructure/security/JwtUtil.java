@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
@@ -15,17 +16,25 @@ public class JwtUtil {
     // Chave secreta usada para assinar e verificar tokens JWT
     private final String secretKey = "sua-chave-secreta-super-segura-que-deve-ser-bem-longa";
 
-    // Extrai as claims do token JWT (informações adicionais do token)
-    public Claims extractClaims(String token) {
-        return Jwts.parser()
-                .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8))) // Define a chave secreta para validar a assinatura do token
-                .build()
-                .parseClaimsJws(token) // Analisa o token JWT e obtém as claims
-                .getBody(); // Retorna o corpo das claims
+    // Gera uma Key a partir da chave secreta String
+    private SecretKey getSecretKey() {
+        // Converte a chave secreta para bytes usando UTF-8 e cria uma SecretKey
+        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+        return Keys.hmacShaKeyFor(keyBytes);
+
     }
 
-    // Extrai o email do token JWT
-    public String extractTokenEmail(String token) {
+    // Extrai as claims do token JWT (informações adicionais do token)
+    private Claims extractClaims(String token) {
+        return Jwts.parser() // Inicia o processo de parsing do token JWT
+                .verifyWith(getSecretKey()) // Configura o parser para verificar a assinatura do token usando a chave de assinatura fornecida
+                .build() // Conclui a configuração do parser
+                .parseSignedClaims(token) // Faz o parsing do token e extrai as claims assinadas
+                .getPayload(); // Obtém o payload (corpo) do token, que contém as claims
+    }
+
+    // Extrai o email do usuário do token JWT
+    public String extrairEmailToken(String token) {
         // Obtém o assunto (nome de usuário) das claims do token
         return extractClaims(token).getSubject();
     }
@@ -39,7 +48,7 @@ public class JwtUtil {
     // Valida o token JWT verificando o nome de usuário e se o token não está expirado
     public boolean validateToken(String token, String username) {
         // Extrai o nome de usuário do token
-        final String extractedUsername = extractTokenEmail(token);
+        final String extractedUsername = extrairEmailToken(token);
         // Verifica se o nome de usuário do token corresponde ao fornecido e se o token não está expirado
         return (extractedUsername.equals(username) && !isTokenExpired(token));
     }
