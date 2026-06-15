@@ -1,9 +1,21 @@
+
 HELP.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+# Gradle distributions e caches
+gradle/wrapper/dists/
+gradle/caches/
+gradle/daemon/
+gradle/native/
+gradle/workers/
+
+# Ignorar todos os .jar exceto o gradle-wrapper
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
 .apt_generated
