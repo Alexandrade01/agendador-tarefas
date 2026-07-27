@@ -1,6 +1,7 @@
 package com.alexandre.agendadortarefas.infrastructure.business.mapper;
 
 import com.alexandre.agendadortarefas.infrastructure.business.dto.TarefasDTO;
+import com.alexandre.agendadortarefas.infrastructure.business.dto.TarefasDTORecord;
 import com.alexandre.agendadortarefas.infrastructure.entity.TarefasEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -11,5 +12,5 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface TarefaUpdateConverter {
 
     //@MappingTarget assinala que o objeto é o principal, caso o outro seja nulo
-    void updateTarefas(TarefasDTO dto, @MappingTarget  TarefasEntity entity);
+    void updateTarefas(TarefasDTORecord dto, @MappingTarget  TarefasEntity entity);
 }

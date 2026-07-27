@@ -1,6 +1,6 @@
 package com.alexandre.agendadortarefas.infrastructure.repository;
 
-import com.alexandre.agendadortarefas.infrastructure.business.dto.TarefasDTO;
+import com.alexandre.agendadortarefas.infrastructure.business.dto.TarefasDTORecord;
 import com.alexandre.agendadortarefas.infrastructure.entity.TarefasEntity;
 import com.alexandre.agendadortarefas.infrastructure.enums.StatusNotificacaoEnum;
 import org.springframework.data.mongodb.repository.MongoRepository;

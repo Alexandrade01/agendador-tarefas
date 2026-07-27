@@ -1,6 +1,6 @@
 package com.alexandre.agendadortarefas.infrastructure.business.mapper;
 
-import com.alexandre.agendadortarefas.infrastructure.business.dto.TarefasDTO;
+import com.alexandre.agendadortarefas.infrastructure.business.dto.TarefasDTORecord;
 import com.alexandre.agendadortarefas.infrastructure.entity.TarefasEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,12 +11,12 @@ import java.util.List;
 public interface TarefasConverter {
 
     @Mapping(source = "id",target = "id")
-    TarefasEntity paraTarefasEntity(TarefasDTO dto);
+    TarefasEntity paraTarefasEntity(TarefasDTORecord dto);
 
-    TarefasDTO paraTarefasDTO(TarefasEntity dto);
+    TarefasDTORecord paraTarefasDTORecord(TarefasEntity dto);
 
-    List<TarefasEntity> paraListaTarefasEntity(List<TarefasDTO> dtos);
+    List<TarefasEntity> paraListaTarefasEntity(List<TarefasDTORecord> dtos);
 
-    List<TarefasDTO>  paraListaTarefasDTO(List<TarefasEntity> entities);
+    List<TarefasDTORecord>  paraListaTarefasDTORecord(List<TarefasEntity> entities);
 
 }
